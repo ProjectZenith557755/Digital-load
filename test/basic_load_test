@@ -1,0 +1,25 @@
+int output;
+
+void setup() {
+  pinMode(3, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  if (analogRead(A0) < 199){ //If the value's too low
+    output++; //Increase the output
+    digitalWrite(LED_BUILTIN, LOW); //If the value is incorrect, turn the builtin led off
+  }
+  else if (analogRead(A0) > 201){ //If the value's too high
+    digitalWrite(LED_BUILTIN, LOW);
+    output--; //Decrease the output
+  }
+  else {
+    digitalWrite(LED_BUILTIN, HIGH); //If the value is correct, turn the builtin led on
+  }
+  
+  analogWrite(3, output); //Write the output to D3
+  if (analogRead(A1) > 512){
+    delay(10); //If an analog pin 1 is pulled high, add some delay (used for testing)
+  }
+}
